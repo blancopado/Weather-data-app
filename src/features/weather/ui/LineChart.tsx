@@ -9,7 +9,7 @@ import {
 	Tooltip,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import type { WeatherData } from "../data/data";
+import type { WeatherData } from "../domain/weather";
 
 ChartJS.register(
 	CategoryScale,

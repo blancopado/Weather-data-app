@@ -9,7 +9,7 @@ import {
 } from "chart.js";
 import type React from "react";
 import { Bar } from "react-chartjs-2";
-import type { WeatherData } from "../data/data";
+import type { WeatherData } from "../domain/weather";
 
 ChartJS.register(
 	CategoryScale,

@@ -7,7 +7,7 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
-import type { WeatherData } from "../../data/data";
+import type { WeatherData } from "../../domain/weather";
 import styles from "./Table.module.css";
 
 interface TableProps {
@@ -158,7 +158,7 @@ const Table: React.FC<TableProps> = ({
 					))}
 				</tbody>
 			</table>
-			<div className="mt-4 flex items-center justify-between">
+			<div>
 				<Button
 					variant="accent"
 					onPress={() => table.previousPage()}
@@ -166,7 +166,7 @@ const Table: React.FC<TableProps> = ({
 				>
 					Previous
 				</Button>
-				<span className="text-sm text-gray-700 dark:text-gray-300">
+				<span>
 					Page {table.getState().pagination.pageIndex + 1} of{" "}
 					{table.getPageCount()}
 				</span>
@@ -178,17 +178,14 @@ const Table: React.FC<TableProps> = ({
 					Next
 				</Button>
 			</div>
-			<div className="mt-4 flex items-center justify-between">
-				<div className="flex items-center">
-					<span className="text-sm text-gray-700 dark:text-gray-300 mr-2">
-						Rows per page:
-					</span>
+			<div>
+				<div>
+					<span>Rows per page:</span>
 					<select
 						value={table.getState().pagination.pageSize}
 						onChange={(e) => {
 							table.setPageSize(Number(e.target.value));
 						}}
-						className="block w-20 px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black dark:text-white"
 					>
 						{[5, 10, 20].map((pageSize) => (
 							<option key={pageSize} value={pageSize}>

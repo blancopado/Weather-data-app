@@ -1,9 +1,4 @@
-interface WeatherData {
-	id: string;
-	date: string;
-	rainfall: number;
-	temperature: number;
-}
+import type { WeatherData } from "../domain/weather";
 
 const sampleWeatherData: WeatherData[] = [
 	{ id: "1", date: "2023-01-01", rainfall: 5.2, temperature: 12 },
@@ -33,4 +28,4 @@ const sampleWeatherData: WeatherData[] = [
 	{ id: "25", date: "2023-01-25", rainfall: 0.2, temperature: 20 },
 ];
 
-export { type WeatherData, sampleWeatherData };
+export default sampleWeatherData;

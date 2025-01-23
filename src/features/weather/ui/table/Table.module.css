@@ -21,3 +21,9 @@
 	background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
 	padding: 5px;
 }
+
+@media (max-width: 760px) {
+	.dataCell input {
+		width: 70px;
+	}
+}

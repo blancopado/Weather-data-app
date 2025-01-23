@@ -1,12 +1,10 @@
 import styles from "./App.module.css";
 
-import { Provider, defaultTheme } from "@adobe/react-spectrum";
+import { Divider, Provider, defaultTheme } from "@adobe/react-spectrum";
 import { useCallback, useState } from "react";
 import Navbar from "./components/navbar";
-import {
-	type WeatherData,
-	sampleWeatherData,
-} from "./features/weather/data/data";
+import type { WeatherData } from "./features/weather/domain/weather";
+import sampleWeatherData from "./features/weather/infrastructure/data";
 import BarChart from "./features/weather/ui/BarChart";
 import LineChart from "./features/weather/ui/LineChart";
 import Table from "./features/weather/ui/table/Table";
@@ -59,6 +57,7 @@ function App() {
 						onDataChange={handleDataChange}
 						onSaveChanges={handleSaveChanges}
 					/>
+					<Divider size="S" />
 					<div className={styles.charts}>
 						<LineChart data={visibleData} />
 						<BarChart data={visibleData} />

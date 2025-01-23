@@ -11,8 +11,8 @@
 	justify-content: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 760px) {
 	.appContent {
-		padding: 1rem 0.5rem;
+		padding: 3rem 0.5rem;
 	}
 }
