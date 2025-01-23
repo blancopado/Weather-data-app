@@ -1,0 +1,23 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+}
+
+.table {
+	border: 1px solid var(--gray);
+	padding: 10px;
+	color: var(--grey);
+}
+
+.headerCell {
+	text-transform: uppercase;
+	padding: 10px;
+}
+
+.tableInput {
+	border: 1px solid #e5e7eb;
+	background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
+	padding: 5px;
+}
