@@ -49,7 +49,7 @@ const Table: React.FC<TableProps> = ({ data, onPageChange, onDataChange }) => {
 			{
 				header: "Temperature (°C)",
 				accessorKey: "temperature",
-				cell: ({ getValue, row, column: { id }, table }) => {
+				cell: ({ getValue, row, column: { id } }) => {
 					const initialValue = getValue() as number;
 					const [value, setValue] = React.useState(initialValue);
 
