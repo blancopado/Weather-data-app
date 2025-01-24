@@ -3,7 +3,7 @@ import styles from "./App.module.css";
 import { Divider, Provider, defaultTheme } from "@adobe/react-spectrum";
 import { useCallback, useState } from "react";
 import Navbar from "./components/navbar";
-import type { WeatherData } from "./features/weather/domain/weather";
+import type { WeatherData } from "./features/weather/domain/Weather";
 import sampleWeatherData from "./features/weather/infrastructure/data";
 import BarChart from "./features/weather/ui/BarChart";
 import LineChart from "./features/weather/ui/LineChart";

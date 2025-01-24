@@ -1,8 +1,18 @@
+.appWrapper {
+	background-color: var(--theme-dark);
+}
+
 .appContent {
-	margin-top: var(--nav-height);
 	padding: 5rem 4rem;
 	background-color: var(--theme-primary);
 	height: 100%;
+
+	max-width: 1280px;
+	min-width: 320px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: var(--nav-height) auto 0 auto;
 }
 
 .charts {

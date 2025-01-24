@@ -7,7 +7,7 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";
-import type { WeatherData } from "../../domain/weather";
+import type { WeatherData } from "../../domain/Weather";
 import styles from "./Table.module.css";
 
 interface TableProps {

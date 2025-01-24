@@ -1,4 +1,4 @@
-import type { WeatherData } from "../domain/weather";
+import type { WeatherData } from "../domain/Weather";
 
 const sampleWeatherData: WeatherData[] = [
 	{ id: "1", date: "2023-01-01", rainfall: 5.2, temperature: 12 },
