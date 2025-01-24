@@ -6,7 +6,7 @@ import {
 	getPaginationRowModel,
 	useReactTable,
 } from "@tanstack/react-table";
-import React, { useCallback, useState } from "react";
+import React, { useEffect } from "react";
 import type { WeatherData } from "../../domain/Weather";
 import styles from "./Table.module.css";
 
@@ -14,17 +14,9 @@ interface TableProps {
 	data: WeatherData[];
 	onPageChange: (start: number, end: number) => void;
 	onDataChange: (updatedData: WeatherData) => void;
-	onSaveChanges: () => void;
 }
 
-const Table: React.FC<TableProps> = ({
-	data,
-	onPageChange,
-	onDataChange,
-	onSaveChanges,
-}) => {
-	const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-
+const Table: React.FC<TableProps> = ({ data, onPageChange, onDataChange }) => {
 	const columns: ColumnDef<WeatherData>[] = React.useMemo(
 		() => [
 			{
@@ -34,7 +26,7 @@ const Table: React.FC<TableProps> = ({
 			{
 				header: "Rainfall (mm)",
 				accessorKey: "rainfall",
-				cell: ({ getValue, row, column: { id }, table }) => {
+				cell: ({ getValue, row, column: { id } }) => {
 					const initialValue = getValue() as number;
 					const [value, setValue] = React.useState(initialValue);
 
@@ -42,23 +34,15 @@ const Table: React.FC<TableProps> = ({
 						setValue(initialValue);
 					}, [initialValue]);
 
-					const onBlur = () => {
-						table.options.meta?.updateData(row.original.id, id, value);
+					const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+						const newValue = Math.max(0, Number(e.target.value));
+						setValue(newValue);
+
+						onDataChange({ ...row.original, [id]: newValue });
 					};
 
 					return (
-						<input
-							value={value}
-							onChange={(e) => {
-								const newValue = Math.max(0, Number(e.target.value));
-								setValue(newValue);
-								setHasUnsavedChanges(true);
-							}}
-							onBlur={onBlur}
-							type="number"
-							className={styles.tableInput}
-							min="0"
-						/>
+						<input value={value} onChange={onChange} type="number" min="0" />
 					);
 				},
 			},
@@ -73,28 +57,20 @@ const Table: React.FC<TableProps> = ({
 						setValue(initialValue);
 					}, [initialValue]);
 
-					const onBlur = () => {
-						table.options.meta?.updateData(row.original.id, id, value);
+					const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+						const newValue = Math.max(0, Number(e.target.value));
+						setValue(newValue);
+
+						onDataChange({ ...row.original, [id]: newValue });
 					};
 
 					return (
-						<input
-							value={value}
-							onChange={(e) => {
-								const newValue = Math.max(0, Number(e.target.value));
-								setValue(newValue);
-								setHasUnsavedChanges(true);
-							}}
-							onBlur={onBlur}
-							type="number"
-							className={styles.tableInput}
-							min="0"
-						/>
+						<input value={value} onChange={onChange} type="number" min="0" />
 					);
 				},
 			},
 		],
-		[],
+		[onDataChange],
 	);
 
 	const table = useReactTable({
@@ -107,27 +83,14 @@ const Table: React.FC<TableProps> = ({
 				pageSize: 5,
 			},
 		},
-		meta: {
-			updateData: (id: string, columnId: string, value: number) => {
-				const updatedData = data.find((item) => item.id === id);
-				if (updatedData) {
-					onDataChange({ ...updatedData, [columnId]: value });
-				}
-			},
-		},
 	});
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const { pageIndex, pageSize } = table.getState().pagination;
 		const start = pageIndex * pageSize;
 		const end = start + pageSize;
 		onPageChange(start, end);
-	}, [table.getState, onPageChange]);
-
-	const handleSaveChanges = useCallback(() => {
-		onSaveChanges();
-		setHasUnsavedChanges(false);
-	}, [onSaveChanges]);
+	}, [onPageChange, table.getState]);
 
 	return (
 		<div className={styles.wrapper}>
@@ -194,14 +157,6 @@ const Table: React.FC<TableProps> = ({
 						))}
 					</select>
 				</div>
-				<Button
-					variant="accent"
-					style="fill"
-					onPress={handleSaveChanges}
-					isDisabled={!hasUnsavedChanges}
-				>
-					Save Changes
-				</Button>
 			</div>
 		</div>
 	);
